@@ -4,10 +4,25 @@
     <head>
         <meta charset="UTF-8">
         <title>Image Gallery</title>
+        
+        <style>
+            html, body {
+                margin: 0px;
+                padding: 0px;
+            }
+            img {
+                margin: 0px;
+                padding: 0px;
+                width: 100%;
+                height: auto;
+            }
+        </style>
     </head>
 
     <body>
+        <h1>VIDEO HYPE : World Wide Wide</h1>
         <div id="gallery"></div>
+
         <script src="/socket.io/socket.io.js"></script>
         <script>
             const socket = io();

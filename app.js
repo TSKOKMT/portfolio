@@ -21,18 +21,15 @@ const imagesDir = path.join(__dirname, 'public/images');
 
 // ソケット接続処理
 io.on('connection', (socket) => {
-  console.log('A user connected');
-
-  // imagesフォルダ内のファイルを読み込む
   fs.readdir(imagesDir, (err, files) => {
     if (err) {
       console.error('Failed to read directory:', err);
       return;
     }
 
-    // ファイルの拡張子が.jpgまたは.pngの場合にクライアントに送信
+    // 拡張子が jpg, jpeg, png, gif のいずれかであるファイルをフィルタリング
     files.forEach(file => {
-      if (path.extname(file).toLowerCase() === '.jpg' || path.extname(file).toLowerCase() === '.png') {
+      if (/\.(jpg|jpeg|png|gif)$/i.test(file)) {
         const imagePath = `/images/${file}`;
         socket.emit('image', imagePath);
       }
