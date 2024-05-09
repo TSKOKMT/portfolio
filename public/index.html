@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>画像ギャラリー</title>
-</head>
-<body>
-    <div id="gallery"></div>
 
-    <script>
-        fetch('http://localhost:3000/images')
-            .then(response => response.json())
-            .then(imagePaths => {
-                const gallery = document.getElementById('gallery');
-                imagePaths.forEach(image => {
-                    const img = document.createElement('img');
-                    img.src = image.url; // URLを使用
-                    gallery.appendChild(img);
-                });
-            })
-            .catch(error => console.error('Error loading the images:', error));
-    </script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Image Gallery</title>
+    </head>
+
+    <body>
+        <div id="gallery"></div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io();
+
+            socket.on('image', function (imagePath) {
+                const img = document.createElement('img');
+                img.src = imagePath;
+                document.getElementById('gallery').appendChild(img);
+            });
+        </script>
+    </body>
+
 </html>
